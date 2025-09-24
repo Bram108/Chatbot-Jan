@@ -87,7 +87,7 @@ function App() {
             </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
@@ -311,69 +311,6 @@ function App() {
           }
         }
       `}</style>
-    </div>
-  );
-}
-
-export default App;
-              </div>
-              <button
-                onClick={clearError}
-                className="text-red-400 hover:text-red-600"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto">
-          {messages.length === 0 && (
-            <div className="flex items-center justify-center h-full text-gray-500">
-              <div className="text-center">
-                <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                <p>Begin een gesprek met je AI Assistant</p>
-              </div>
-            </div>
-          )}
-          
-          {messages.map((message) => (
-            <ChatMessage
-              key={message.id}
-              message={message.content}
-              isAssistant={message.isAssistant}
-              timestamp={message.timestamp}
-            />
-          ))}
-          
-          {isLoading && (
-            <div className="flex gap-3 p-4 bg-gray-50">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                <MessageCircle className="w-5 h-5 text-blue-600" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm font-medium text-gray-900">Assistant</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  </div>
-                  <span className="text-sm">Aan het typen...</span>
-                </div>
-              </div>
-            </div>
-          )}
-          
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <ChatInput onSendMessage={sendMessage} isLoading={isLoading} />
-      </div>
     </div>
   );
 }
