@@ -2,17 +2,25 @@ class OpenAIService {
   private apiKey: string;
   private assistantId: string;
   private baseUrl = 'https://api.openai.com/v1';
+  private isConfigured: boolean;
 
   constructor() {
     this.apiKey = import.meta.env.VITE_OPENAI_API_KEY;
     this.assistantId = import.meta.env.VITE_OPENAI_ASSISTANT_ID;
+    this.isConfigured = !!(this.apiKey && this.assistantId);
     
-    if (!this.apiKey || !this.assistantId) {
-      throw new Error('OpenAI API key en Assistant ID zijn vereist');
-    }
+    // Don't throw error on initialization, just mark as not configured
+  }
+
+  isReady(): boolean {
+    return this.isConfigured;
   }
 
   private async fetchAPI(endpoint: string, options: RequestInit = {}) {
+    if (!this.isConfigured) {
+      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    }
+
     const response = await fetch(`${this.baseUrl}${endpoint}`, {
       ...options,
       headers: {
@@ -32,6 +40,10 @@ class OpenAIService {
   }
 
   async createThread(): Promise<string> {
+    if (!this.isConfigured) {
+      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    }
+
     const thread = await this.fetchAPI('/threads', {
       method: 'POST',
       body: JSON.stringify({}),
@@ -40,6 +52,10 @@ class OpenAIService {
   }
 
   async addMessage(threadId: string, content: string): Promise<void> {
+    if (!this.isConfigured) {
+      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    }
+
     await this.fetchAPI(`/threads/${threadId}/messages`, {
       method: 'POST',
       body: JSON.stringify({
@@ -55,6 +71,10 @@ class OpenAIService {
   }
 
   async runAssistant(threadId: string): Promise<string> {
+    if (!this.isConfigured) {
+      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    }
+
     const run = await this.fetchAPI(`/threads/${threadId}/runs`, {
       method: 'POST',
       body: JSON.stringify({
@@ -65,16 +85,28 @@ class OpenAIService {
   }
 
   async checkRunStatus(threadId: string, runId: string): Promise<string> {
+    if (!this.isConfigured) {
+      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    }
+
     const run = await this.fetchAPI(`/threads/${threadId}/runs/${runId}`);
     return run.status;
   }
 
   async getMessages(threadId: string): Promise<any[]> {
+    if (!this.isConfigured) {
+      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    }
+
     const response = await this.fetchAPI(`/threads/${threadId}/messages`);
     return response.data;
   }
 
   async waitForCompletion(threadId: string, runId: string): Promise<void> {
+    if (!this.isConfigured) {
+      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    }
+
     let status = 'in_progress';
     
     while (status === 'in_progress' || status === 'queued') {

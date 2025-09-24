@@ -16,6 +16,11 @@ export const useChat = () => {
 
   const initializeThread = useCallback(async () => {
     try {
+      if (!openAI.isReady()) {
+        setError('OpenAI is niet geconfigureerd. Voeg VITE_OPENAI_API_KEY en VITE_OPENAI_ASSISTANT_ID toe aan je .env bestand.');
+        return;
+      }
+
       if (!threadIdRef.current) {
         threadIdRef.current = await openAI.createThread();
       }
@@ -30,6 +35,11 @@ export const useChat = () => {
   }, [initializeThread]);
 
   const sendMessage = useCallback(async (content: string) => {
+    if (!openAI.isReady()) {
+      setError('OpenAI is niet geconfigureerd. Voeg VITE_OPENAI_API_KEY en VITE_OPENAI_ASSISTANT_ID toe aan je .env bestand.');
+      return;
+    }
+
     if (!threadIdRef.current) {
       await initializeThread();
       if (!threadIdRef.current) return;
