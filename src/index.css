@@ -1,3 +1,105 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+  }
+  
+  .bg-gradient-to-br {
+    background: white !important;
+  }
+  
+  .shadow-lg, .shadow-sm {
+    box-shadow: none !important;
+  }
+  
+  .backdrop-blur-sm {
+    backdrop-filter: none !important;
+  }
+  
+  .bg-white\/80 {
+    background: white !important;
+  }
+  
+  .sticky {
+    position: static !important;
+  }
+  
+  .fixed {
+    position: static !important;
+  }
+  
+  .grid {
+    display: block !important;
+  }
+  
+  .lg\:col-span-1, .lg\:col-span-2 {
+    width: 100% !important;
+    margin-bottom: 2rem;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+  
+  .text-xl {
+    font-size: 1.125rem !important;
+  }
+  
+  .p-8, .p-6 {
+    padding: 1rem !important;
+  }
+  
+  .py-8, .py-6 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  .px-4 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  .gap-8, .gap-6 {
+    gap: 1rem !important;
+  }
+  
+  .rounded-lg, .rounded-full {
+    border-radius: 0.25rem !important;
+  }
+  
+  .border {
+    border: 1px solid #e5e7eb !important;
+  }
+  
+  .bg-blue-50, .bg-indigo-50, .bg-purple-50, .bg-gray-50 {
+    background-color: #f9fafb !important;
+  }
+  
+  .text-blue-600, .text-indigo-600, .text-purple-600 {
+    color: #374151 !important;
+  }
+  
+  .bg-blue-100, .bg-indigo-100, .bg-purple-100 {
+    background-color: #f3f4f6 !important;
+  }
+}
